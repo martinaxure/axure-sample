@@ -59,12 +59,16 @@ export class SelectionHandler extends DiagramExtension {
         // app.canvas2.addEventListener("mousemove", e => this.mousemove(e));
         // app.canvas2.addEventListener("mouseup", e => this.mouseup(e));
 
-        this.app.comm.connection.on('selectionChanged', rect => this.remoteSelect(
-            new Rect(rect.location.x, rect.location.y, rect.size.width, rect.size.height)));
+        this.app.comm.connection.on('selectionChanged', rectString => {
+            let rect = JSON.parse(rectString);
+            this.remoteSelect(
+                new Rect(rect.location.x, rect.location.y, rect.size.width, rect.size.height))
+        });
         this.app.comm.connection.on('selectionFinished', () => this.remoteSelectFinished());
     }
 
-    invalidate(rect:Rect):void {
+    invalidate(rect: Rect): void {
+        if (!rect) return;
         this.app.ctx2.clearRect(rect.x, rect.y, rect.width, rect.height);
     }
 

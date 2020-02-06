@@ -16,8 +16,8 @@ export class App {
 
     comm: Comm;
 
-	private height: number = window.innerHeight;
-    private width: number = window.innerWidth;
+	public height: number = window.innerHeight;
+    public width: number = window.innerWidth;
     
     private plugins:DiagramExtension[] = [];
     // private plugins:Map<string, DiagramExtension>;
@@ -46,7 +46,8 @@ export class App {
         container.addEventListener('pointerdown', e => this.routeEvent('pointerdown', e));
         container.addEventListener('pointermove', e => this.routeEvent('pointermove', e));
         container.addEventListener('pointerup', e => this.routeEvent('pointerup', e));
-        container.addEventListener('paste', e => this.routeEvent('paste', e));
+        window.addEventListener('paste', e => this.routeEvent('paste', <ClipboardEvent>e));
+        document.addEventListener('keydown', e => this.routeEvent('keydown', e));
         
         this.comm = new Comm();
         this.plugins.push(this.comm, new ClipboardHandler(), new SelectionHandler());
@@ -79,7 +80,7 @@ export class App {
     routeEvent<T extends keyof DiagramExtensionEventTypeMap>(eventName: T, event: DiagramExtensionEventTypeMap[T]): boolean {
         for(const plugin of this.plugins) {
             var eventFn = plugin[eventName];
-            if(eventFn && eventFn(<any>event)) return;
+            if(eventFn && plugin[eventName](<any>event)) return;
         }
     }
 }

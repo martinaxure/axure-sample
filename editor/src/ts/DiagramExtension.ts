@@ -4,7 +4,8 @@ export interface DiagramExtensionEventTypeMap {
     'paste' : ClipboardEvent;
     'pointerdown': PointerEvent;
     'pointermove' : PointerEvent;
-    'pointerup' : PointerEvent;
+    'pointerup': PointerEvent;
+    'keydown' : KeyboardEvent
 }
 
 export abstract class DiagramExtension {
@@ -21,5 +22,6 @@ export abstract class DiagramExtension {
     pointermove?(event:DiagramExtensionEventTypeMap['pointermove']):boolean;
     pointerup?(event:DiagramExtensionEventTypeMap['pointerup']):boolean;
 
-    paste?(event:DiagramExtensionEventTypeMap['paste']):boolean;
+    paste?(event: DiagramExtensionEventTypeMap['paste']): boolean;
+    keydown?(event: DiagramExtensionEventTypeMap['keydown']): boolean;
 }

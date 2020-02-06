@@ -1,6 +1,6 @@
 import { DiagramExtension } from "./DiagramExtension";
 import { App } from "./app";
-import { HubConnectionBuilder, HubConnection } from "@aspnet/signalr";
+import { HubConnectionBuilder, HubConnection } from "@microsoft/signalr";
 
 
 export class Comm extends DiagramExtension {
@@ -17,8 +17,8 @@ export class Comm extends DiagramExtension {
         // });
     }
 
-    public sendMessage(msg:string, payload:any = undefined) {
-        if(payload) return this.connection.send(msg, payload);
+    public sendMessage(msg: string, payload: any = undefined) {
+        if(payload) return this.connection.send(msg, JSON.stringify(payload));
         return this.connection.send(msg);
     }
 }

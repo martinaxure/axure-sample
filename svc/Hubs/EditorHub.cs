@@ -3,28 +3,26 @@ using System;
 using System.Threading.Tasks;
 
 namespace svc.Hubs {
-    public struct Point {
+    public class Point {
         public int x;
         public int y;
     }
 
-    public struct Size {
+    public class Size {
         public int width;
         public int height;
     }
 
-    public struct Rect {
+    public class Rect {
         public Point location;
         public Size size;
     }
     public class EditorHub : Hub {
-        public async Task SelectionChanged(Rect r) {
-            Console.WriteLine($"message x:{r.location.x}, y:{r.location.y}");
+        public async Task SelectionChanged(string r) {
             await Clients.AllExcept(Context.ConnectionId).SendAsync("selectionChanged", r);
         }
 
         public async Task SelectionFinished() {
-            // Console.WriteLine($"message x:{p.x}, y:{p.y}");
             await Clients.AllExcept(Context.ConnectionId).SendAsync("selectionFinished");
         }
     }

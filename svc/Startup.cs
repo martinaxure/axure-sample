@@ -27,7 +27,7 @@ namespace svc {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
             services.AddSignalR();
         }
 
@@ -45,15 +45,19 @@ namespace svc {
                 builder.WithOrigins("http://localhost:8080").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
             });
 
-            app.UseSignalR(options => {
-                options.MapHub<EditorHub>("/ed-hub");
+            // app.UseSignalR(options => {
+            //     options.MapHub<EditorHub>("/ed-hub");
+            // });
+            app.UseRouting();
+            app.UseEndpoints(endpoints => {
+                endpoints.MapHub<EditorHub>("/ed-hub");
             });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc();
+            // app.UseMvc();
         }
     }
 }

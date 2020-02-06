@@ -41,4 +41,4 @@ Open two browser tabs to http://localhost:8080/, provide an implementation of `r
 
 ### Question 2
 
-If you copy an image to your clipboard and type `Ctrl-V/⌘V` to paste, that image will appear on the canvas. Implement an event handler on `clipboardHandler.ts` so when you press the "delete" key, the pasted image is removed from the canvas. Use the capabilities of `DiagramExtension` (which `selectionHandler` implements) to set up the event handler.
+If you copy an image to your clipboard and type `Ctrl-V/⌘V` to paste, that image will appear on the canvas. Implement an event handler on `clipboardHandler.ts` so when you press the "delete" key, the pasted image is removed from the canvas. Use the capabilities of `DiagramExtension` (which `clipboardHandler` implements) to set up the event handler.
